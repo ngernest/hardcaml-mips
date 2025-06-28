@@ -1,9 +1,14 @@
 open Hardcaml
 open Hardcaml_waveterm
 open Mips.Datapath
+
+(* Adapted from https://blog.janestreet.com/using-ascii-waveforms-to-test-hardware-designs/ *)
+
+(* Create a simulation module by passing the input/output
+   modules to a functor *)
 module Simulator = Cyclesim.With_interface (I) (O)
 
-let testbench () =
+let testbench () : Waveform.t =
   let sim = Simulator.create create in
   let waves, sim = Waveform.create sim in
   let inputs = Cyclesim.inputs sim in
